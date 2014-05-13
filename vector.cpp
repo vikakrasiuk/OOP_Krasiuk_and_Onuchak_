@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Vektor.h"
+#include <stdio.h>
 	using namespace std;
 class Vektor {
 public:
