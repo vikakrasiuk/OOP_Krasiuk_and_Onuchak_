@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Vektor.h"
+	using namespace std;
 class Vektor {
 public:
 	Vektor();//конструктор "по умолчанию"
@@ -9,15 +10,10 @@ public:
 	Vektor operator+ (const Vektor v);//перегрузка оператора +
 	Vektor operator- (const Vektor v);//перегрузка оператора -
 	Vektor operator* (const Vektor v);//перегрузка оператора *
-	Vektor operator* (const int x);//перегрузка оператора *
+	Vektor operator* (const int x);//перегрузка оператора * (векторний добуток)
 	int& operator [] (int x);//перегрузка оператора индексирования
     bool operator== (const Vektor v);//перегрузка оператора сравнения
-	Vektor operator+= (Vektor v);//перегрузка оператора +=
-	Vektor operator-= (Vektor v);//перегрузка оператора -=
-	Vektor operator*= (Vektor v);//перегрузка оператора *=
-	Vektor operator*= (int x);//перегрузка оператора *=
 	Vektor operator= (const Vektor v);//перегрузка оператора =
-	bool operator!= (Vektor v);//перегрузка оператора !=
 	friend std:: ostream& operator<< (std:: ostream& s, const Vektor v);//метод вывода
 private:
 	int* vek;
@@ -117,48 +113,7 @@ bool Vektor:: operator ==(const Vektor v){//реализация операто�
 	}
 	else{return true;}
 }
-Vektor Vektor:: operator+= (Vektor v){//реализация перегрузки оператора +=
-using namespace std;
-	if (!(this->length==v.length)){
-		cout<<"Wrong operation";
-		return 0;
-	}
-	else
-	{
-		for (int i=0; i<this->length; i++){
-			this->vek[i]+=v.vek[i];
-		}	
-	return *this;	
-	}
-}
-Vektor Vektor:: operator-= (Vektor v){//реализация перегрузки оператора -=
-	using namespace std;
-	if (!(this->length==v.length)){
-		cout<<"Wrong operation";
-		return 0;
-	}
-	else
-	{
-		for (int i=0; i<this->length; i++){
-			this->vek[i]-=v.vek[i];
-		}	
-	return *this;	
-	}
-}
-Vektor Vektor:: operator *=(Vektor v){//реализация оператора *=
-using namespace std;
-	if (!(this->length==v.length)){
-		cout<<"Wrong operation";
-		return 0;
-	}
-	else
-	{
-		for (int i=0; i<this->length; i++){
-			this->vek[i]*=v.vek[i];
-		}	
-	return *this;	
-	}
-}
+
 Vektor Vektor:: operator*= (int x){//реализация оператора *
 	for (int i=0; i<this->length; i++){
 			this->vek[i]*=x;
@@ -176,22 +131,6 @@ if (!(this==&v)){
 	}}
 	return *this;
 	}
-
-bool Vektor:: operator!= (Vektor v){//реализация оператора !=
-    bool tmp=false;
-	if (!(this->length==v.length)) {
-		return true;
-	}
-	else {
-		for (int i=0; i<this->length; i++){
-			if (!(this->vek[i]==v.vek[i])){
-				tmp=true;
-			}
-		}
-			if (tmp==true){return true;}
-	        else {return false;}
-	}
-
 }
 std:: ostream& operator<<(std:: ostream& s, const Vektor v)//реализация метода вывода
 {
