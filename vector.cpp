@@ -9,19 +9,20 @@ public:
 	Vektor(const Vektor& v);//копирующий конструктор
 	Vektor operator+ (const Vektor v);//перегрузка оператора +
 	Vektor operator- (const Vektor v);//перегрузка оператора -
-	Vektor operator* (const Vektor v);//перегрузка оператора *
-	Vektor operator* (const int x);//перегрузка оператора * (векторний добуток)
+	Vektor operator* (const Vektor v);//перегрузка оператора *(векторный добуток)
+	Vektor operator* (const int x);//перегрузка оператора * (вектор на число)
+	Vektor operator% (const Vektor v);//перегрузка оператора *
 	int& operator [] (int x);//перегрузка оператора индексирования
     bool operator== (const Vektor v);//перегрузка оператора сравнения
 	Vektor operator= (const Vektor v);//перегрузка оператора =
 	friend std:: ostream& operator<< (std:: ostream& s, const Vektor v);//метод вывода
 private:
-	int* vek;
-	int length;
+       double * coordinaty;
+       double length; //довжина
 };
 Vektor::Vektor(){//реализация конструктора "по умолчанию"
 	length=10;
-	vek = new int[length];
+	coordinaty = new int[length];
 }
 Vektor:: ~Vektor(){//реализация деструктора
 	using namespace std;
