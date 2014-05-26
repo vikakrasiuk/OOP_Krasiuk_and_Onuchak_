@@ -11,6 +11,7 @@ public:
 	Vektor operator- (const Vektor v);//перегрузка оператора -
 	Vektor operator* (const Vektor v);//перегрузка оператора *(векторный добуток)
 	Vektor operator* (const int x);//перегрузка оператора * (вектор на число)
+	double abs()//модуль вектора
 	Vektor operator% (const Vektor v);//перегрузка оператора *
 	int& operator [] (int x);//перегрузка оператора индексирования
     bool operator== (const Vektor v);//перегрузка оператора сравнения
@@ -18,11 +19,11 @@ public:
 	friend std:: ostream& operator<< (std:: ostream& s, const Vektor v);//метод вывода
 private:
        double * coordinaty;
-       double length; //довжина
-};
+       double rozmirnist; 
+      } ;
 Vektor::Vektor(){//реализация конструктора "по умолчанию"
-	length=10;
-	coordinaty = new int[length];
+        rozmirnist=10;
+	coordinaty = new int[rozmirnist];
 }
 Vektor:: ~Vektor(){//реализация деструктора
 	using namespace std;
@@ -30,27 +31,27 @@ Vektor:: ~Vektor(){//реализация деструктора
 	delete[] coordinaty;
 }
 Vektor:: Vektor(int x){//реализация конструктора с заданным размером
-	length=x;
-        coordinaty=new int[length];
+	rozmirnist=x;
+        coordinaty=new int[rozmirnist];
 }
 Vektor:: Vektor(const Vektor& v){//реализация копируещего конструктора
-	this->length=v.length;
-    coordinaty = new int[length];
+	this->rozmirnist=v.rozmirnist;
+    coordinaty = new int[rozmirnist];
 }
 Vektor Vektor:: operator +(const Vektor v){//реализация перегрузки оператора +
 	using namespace std;
 	Vektor result;
-	result.length=this->length;
-	for (int i=0; i<this->length; i++){
+	result.rozmirnist=this->rozmirnist;
+	for (int i=0; i<this->rozmirnist; i++){
 		result.coordinaty[i]=this->coordinaty[i];
 	}
-	if (!(this->length=v.length)){
+	if (!(this->rozmirnist=v.rozmirnist)){
 		cout<<"Wrong operation";
 		return 0;
 	}
 	else
 	{
-		for (int i=0; i<this->length; i++){
+		for (int i=0; i<this->rozmirnist; i++){
 			result.coordinaty[i]+=v.coordinaty[i];
 		}	
 	return result;	
@@ -59,13 +60,13 @@ Vektor Vektor:: operator +(const Vektor v){//реализация перегру
 Vektor Vektor:: operator -(const Vektor v){//реализация перегрузки оператора -
 	using namespace std;
 	Vektor result;
-	if (!(this->length=v.length)){
+	if (!(this->rozmirnist=v.rozmirnist)){
 		cout<<"Wrong operation";
 		return 0;
 	}
 	else
 	{
-		for (int i=0; i<this->length; i++){
+		for (int i=0; i<this->rozmirnist; i++){
 			result.coordinaty[i]-=v.coordinaty[i];
 		}	
 	return result;	
@@ -74,13 +75,13 @@ Vektor Vektor:: operator -(const Vektor v){//реализация перегру
 Vektor Vektor:: operator* (const Vektor v){//реализация оператора *
 	using namespace std;
 	Vektor result;
-	if (!(this->length=v.length)){
+	if (!(this->rozmirnist=v.rozmirnist)){
 		cout<<"Wrong operation";
 		return 0;
 	}
 	else
 	{
-		for (int i=0; i<this->length; i++){
+		for (int i=0; i<this->rozmirnist; i++){
 			result.coordinaty[i]*=v.coordinaty[i];
 		}	
 	return result;	
@@ -92,18 +93,27 @@ int& Vektor:: operator [] (int x)
 }
 Vektor Vektor:: operator* (const int x){//реализация оператора *
 	Vektor result;
-		for (int i=0; i<this->length; i++){
+		for (int i=0; i<this->rozmirnist; i++){
 			result.coordinaty[i]*=x;
 	return result;	
 	}
 }
+double Vektor::abs()// реализация модуля
+{
+	double(modul,s);
+	s=0
+	for(int i=0;i<rozmirnist;i++)
+{s=s+coordinaty[i]*coordinaty[i]
+}
+return s
+}
 bool Vektor:: operator ==(const Vektor v){//реализация оператора сравнения
 	bool tmp=true;
-	if (!(this->length==v.length)) {
+	if (!(this->rozmirnist==v.rozmirnist)) {
 		tmp=false;
 	}
 	else {
-		for (int i=0; i<this->length; i++){
+		for (int i=0; i<this->rozmirnist; i++){
 			if (!(this->coordinaty[i]==v.coordinaty[i])){
 				tmp=false;
 			}
@@ -116,7 +126,7 @@ bool Vektor:: operator ==(const Vektor v){//реализация операто�
 }
 
 Vektor Vektor:: operator*= (int x){//реализация оператора *
-	for (int i=0; i<this->length; i++){
+	for (int i=0; i<this->rozmirnist; i++){
 			this->coordinaty[i]*=x;
 		}
 	return *this;	
@@ -124,10 +134,10 @@ Vektor Vektor:: operator*= (int x){//реализация оператора *
 }
 Vektor Vektor:: operator= (const Vektor v){//реализация оператора =
 if (!(this==&v)){
-	this->length=v.length;
+	this->rozmirnist=v.rozmirnist;
 	if (coordinaty) delete[] coordinaty;
-	coordinaty = new int[v.length];
-	for (int i=0; i<this->length; i++){
+	coordinaty = new int[v.rozmirnist];
+	for (int i=0; i<this->rozmirnist; i++){
 		this->coordinaty[i]=v.coordinaty[i];	
 	}}
 	return *this;
@@ -135,8 +145,8 @@ if (!(this==&v)){
 }
 std:: ostream& operator<<(std:: ostream& s, const Vektor v)//реализация метода вывода
 {
-	s<<v.length<<"-length"<<std::endl;
-	for (int i=0; i<v.length; i++){
+	s<<v.rozmirnist<<"-rozmirnist"<<std::endl;
+	for (int i=0; i<v.rozmirnist; i++){
 		s<<v.coordinaty[i]<<"-element of vektor number "<<i<<std::endl;
 	}
 	return s;
